@@ -86,6 +86,10 @@ def train(model, criterion, optimizer, time_matrix_tensor, n_epochs=1000):
             print(f'Epoch [{epoch + 1}/{n_epochs}], Loss: {loss.item():.4f}')
 
 def predict_route(start_point, time_limit):
+    # Проверка существования стартовой локации
+    if start_point not in attractions_df['Название'].values:
+        raise IndexError("Start point not found in attractions")
+
     model.eval()
     hidden = model.init_hidden()
     inputs = time_matrix_tensor
